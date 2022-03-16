@@ -4,6 +4,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"fmt"
 
 	service "github.com/davidsgv/n3o-bar/Service"
 	"github.com/davidsgv/n3o-bar/controller"
@@ -30,11 +31,13 @@ func main() {
 
 	server := gin.New()
 	server.Use(gin.Recovery(),
-		middlewares.Logger(), middlewares.BasicAuth())
+		middlewares.Logger())
+		//middlewares.Logger(), middlewares.BasicAuth())
 
 	server.POST("/login", func(ctx *gin.Context) {
 		token := loginController.Login(ctx)
 		fmt.Println("TOKEN: " + token)
+
 		if token != "" {
 			ctx.JSON(http.StatusOK, gin.H{
 				"token": token,

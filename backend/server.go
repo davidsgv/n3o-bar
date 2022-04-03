@@ -29,25 +29,14 @@ func setupLogOutput() {
 }
 
 func main() {
+	//Logger setup
 	setupLogOutput()
 
 	server := gin.New()
+
+	//Logger and Recovery for error
 	server.Use(gin.Recovery(),
 		middlewares.Logger())
-	//middlewares.Logger(), middlewares.BasicAuth())
-
-	// server.POST("/login", func(ctx *gin.Context) {
-	// 	token := loginController.Login(ctx)
-	// 	fmt.Println("TOKEN: " + token)
-
-	// 	if token != "" {
-	// 		ctx.JSON(http.StatusOK, gin.H{
-	// 			"token": token,
-	// 		})
-	// 	} else {
-	// 		ctx.JSON(http.StatusUnauthorized, nil)
-	// 	}
-	// })
 
 	//Se registran las rutas del api
 	apiRoutes := server.Group("/api/")

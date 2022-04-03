@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"os"
 
 	_ "github.com/lib/pq"
 )
@@ -19,7 +20,14 @@ const (
 func Init() *sql.DB {
 	//connStr := fmt.Sprintf("%s://%s:%s@%s:%d/lcp?sslmode=verify-full", dbname, user, password, host, port)
 
-	connStr := "user=David password=David123 dbname=neobar port=5432 sslmode=disable"
+	herokuEnv := os.Getenv("DATABASE_URL")
+	var connStr string
+	if herokuEnv == "" {
+		connStr = "user=David password=David123 dbname=neobar port=5432 sslmode=disable"
+	} else {
+		connStr = herokuEnv
+	}
+
 	//connStr := fmt.Sprintf("host=%s port=%d user=%s "+
 	//"password=%s dbname=%s sslmode=disable",
 	//host, port, user, password, dbname)

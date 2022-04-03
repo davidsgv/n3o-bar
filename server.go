@@ -2,9 +2,7 @@ package main
 
 import (
 	"io"
-	"net/http"
 	"os"
-	"fmt"
 
 	service "github.com/davidsgv/n3o-bar/Service"
 	"github.com/davidsgv/n3o-bar/controller"
@@ -13,13 +11,17 @@ import (
 )
 
 var (
-	videoService service.VideoService = service.New()
-	loginService service.LoginService = service.NewLoginService()
-	jwtService   service.JWTService   = service.NewJWTService()
+	loginService service.AuthorizationService = service.NewAuthorizationService()
+	//jwtService   service.JWTService   = service.NewJWTService()
 
-	videoController controller.VideoController = controller.New(videoService)
-	loginController controller.LoginController = controller.NewLoginController(loginService, jwtService)
+	//loginController controller.LoginController = controller.NewLoginController(loginService, jwtService)
 )
+
+var controllers []controller.GenericController = []controller.GenericController{
+	controller.NewTipoIdentificacionController(), //tipo identificacion
+	controller.NewTerceroController(),            //tercero
+	controller.NewAuthorizationController(),      //authorizacion
+}
 
 func setupLogOutput() {
 	f, _ := os.Create("gin.log")
@@ -32,36 +34,30 @@ func main() {
 	server := gin.New()
 	server.Use(gin.Recovery(),
 		middlewares.Logger())
-		//middlewares.Logger(), middlewares.BasicAuth())
+	//middlewares.Logger(), middlewares.BasicAuth())
 
-	server.POST("/login", func(ctx *gin.Context) {
-		token := loginController.Login(ctx)
-		fmt.Println("TOKEN: " + token)
+	// server.POST("/login", func(ctx *gin.Context) {
+	// 	token := loginController.Login(ctx)
+	// 	fmt.Println("TOKEN: " + token)
 
-		if token != "" {
-			ctx.JSON(http.StatusOK, gin.H{
-				"token": token,
-			})
-		} else {
-			ctx.JSON(http.StatusUnauthorized, nil)
-		}
-	})
+	// 	if token != "" {
+	// 		ctx.JSON(http.StatusOK, gin.H{
+	// 			"token": token,
+	// 		})
+	// 	} else {
+	// 		ctx.JSON(http.StatusUnauthorized, nil)
+	// 	}
+	// })
 
-	apiRoutes := server.Group("/api", middlewares.AuthorizeJWT())
-	{
-		apiRoutes.GET("/videos", func(ctx *gin.Context) {
-			ctx.JSON(200, videoController.FindAll())
-		})
-
-		apiRoutes.POST("/videos", func(ctx *gin.Context) {
-			err := videoController.Save(ctx)
-			if err != nil {
-				ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-			} else {
-				ctx.JSON(http.StatusOK, gin.H{"message": "Video Input is valid"})
-			}
-		})
+	//Se registran las rutas del api
+	apiRoutes := server.Group("/api/")
+	for i := 0; i < len(controllers); i++ {
+		controllers[i].Router(apiRoutes)
 	}
 
-	server.Run(":8080")
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8000"
+	}
+	server.Run(":" + port)
 }

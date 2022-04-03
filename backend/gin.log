@@ -1,0 +1,14 @@
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /api/identificacion/      --> github.com/davidsgv/n3o-bar/controller.tipoIdentificacionController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/tercero/:id          --> github.com/davidsgv/n3o-bar/controller.terceroController.FindById-fm (4 handlers)
+[GIN-debug] POST   /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.Save-fm (4 handlers)
+[GIN-debug] POST   /api/login/               --> github.com/davidsgv/n3o-bar/controller.(*authorizationController).login-fm (3 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on :8000
+[GIN-debug] redirecting request 301: /api/identificacion/ --> /api/identificacion/
+127.0.0.1 - [03 Apr 22 17:17 -05] GET /api/identificacion/ 200 41.577ms 

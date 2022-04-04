@@ -11,12 +11,30 @@ type TerceroService interface {
 	Save(dto.TerceroCrear)
 	FindAll() []dto.Tercero
 	FindById(id int64) *dto.Tercero
+	Update(dto.TerceroActualizar)
 }
 
 type terceroService struct{}
 
 func NewTerceroService() TerceroService {
 	return &terceroService{}
+}
+
+func (service terceroService) Update(dto dto.TerceroActualizar) {
+	terceroEntity := entity.Tercero{
+		Nombre:         dto.Nombre,
+		Celular:        dto.Celular,
+		Telefono:       dto.Telefono,
+		Direccion:      dto.Direccion,
+		Identificacion: dto.Identificacion,
+		TipoIdentificacion: entity.TipoIdentificacion{
+			Id: dto.TipoIndetificacionId,
+		},
+	}
+
+	modelo := terceroModel.NewTerceroModel()
+
+	modelo.Update(terceroEntity)
 }
 
 func (service terceroService) Save(dto dto.TerceroCrear) {

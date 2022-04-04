@@ -6,9 +6,9 @@
 [GIN-debug] GET    /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.FindAll-fm (4 handlers)
 [GIN-debug] GET    /api/tercero/:id          --> github.com/davidsgv/n3o-bar/controller.terceroController.FindById-fm (4 handlers)
 [GIN-debug] POST   /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.Save-fm (4 handlers)
+[GIN-debug] PUT    /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.Update-fm (4 handlers)
 [GIN-debug] POST   /api/login/               --> github.com/davidsgv/n3o-bar/controller.(*authorizationController).login-fm (3 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8000
-[GIN-debug] redirecting request 301: /api/identificacion/ --> /api/identificacion/
-127.0.0.1 - [03 Apr 22 17:17 -05] GET /api/identificacion/ 200 41.577ms 
+127.0.0.1 - [03 Apr 22 19:32 -05] PUT /api/tercero/ 200 155.9531ms 

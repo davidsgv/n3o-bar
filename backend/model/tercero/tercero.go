@@ -103,14 +103,13 @@ func (model terceroModel) FindById(id int64) entity.Tercero {
 func (model terceroModel) Update(entity entity.Tercero) {
 	sql := database.Init()
 
-	_, err := sql.Exec("UPDATE ter_tercero"+
-		"SET ter_nombre = '%s'"+
-		", ter_celular = '%s'"+
-		", ter_direccion = '%s'"+
-		", ter_identificacion = '%s'"+
-		", ter_telefono = '%s'"+
-		", tid_id = '%d'"+
-		" FROM ter_Tercero",
+	_, err := sql.Exec("UPDATE ter_tercero "+
+		"SET ter_nombre = $1"+
+		", ter_celular = $2"+
+		", ter_direccion = $3"+
+		", ter_identificacion = $4"+
+		", ter_telefono = $5"+
+		", tid_id = $6",
 		entity.Nombre, entity.Celular, entity.Direccion, entity.Identificacion, entity.Telefono, entity.TipoIdentificacion.Id)
 	defer sql.Close()
 

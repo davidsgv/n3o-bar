@@ -25,11 +25,26 @@ func (controller terceroController) Router(router *gin.RouterGroup) {
 	routing.GET("/", controller.FindAll)     //find all
 	routing.GET("/:id", controller.FindById) //find by id
 	routing.POST("/", controller.Save)
+	routing.PUT("/", controller.Update)
+}
+
+func (controller terceroController) Update(ctx *gin.Context) {
+	service := service.NewTerceroService()
+	dto := dto.TerceroActualizar{}
+	err := ctx.ShouldBindJSON(&dto)
+
+	if err != nil {
+		returnBadBinding(ctx, err)
+		return
+	}
+
+	service.Update(dto)
+
+	returnEmptyResultWithMessage(ctx, "Registro actualizado correctamente")
 }
 
 func (controller terceroController) FindAll(ctx *gin.Context) {
-	service := service.NewTerceroService()
-	listaTercero := service.FindAll()
+	listaTercero := service.NewTerceroService().FindAll()
 
 	if len(listaTercero) <= 0 {
 		returnEmptyResultWithMessage(ctx, "No hay registros")

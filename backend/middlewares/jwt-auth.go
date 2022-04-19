@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	service "github.com/davidsgv/n3o-bar/Service"
+	"github.com/davidsgv/n3o-bar/service/authorization"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
@@ -19,7 +19,7 @@ func AuthorizeJWT(roles []string) gin.HandlerFunc {
 			tokenString = authHeader[len(BEARER_SCHEMA):]
 		}
 
-		token, err := service.NewAuthorizationService().ValidateToken(tokenString)
+		token, err := authorization.NewAuthorizationService().ValidateToken(tokenString)
 
 		if err == nil && token.Valid {
 			//si no se especifican los roles
@@ -31,6 +31,7 @@ func AuthorizeJWT(roles []string) gin.HandlerFunc {
 			claims := token.Claims.(jwt.MapClaims)
 			for i := 0; i < len(roles); i++ {
 				if roles[i] == claims["rol"] {
+					ctx.Set("userId", claims["usuarioId"])
 					// 	log.Println("Claims[Usuario]: ", claims["usuario"])
 					// 	log.Println("Claims[IdUsuario]: ", claims["usuarioId"])
 					// 	log.Println("Claims[Rol]: ", claims["rol"])

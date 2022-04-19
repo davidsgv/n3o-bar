@@ -1,10 +1,5 @@
 package entity
 
-type Rol struct {
-	Id     int64
-	Nombre string
-}
-
 type Usuario struct {
 	Id       int64
 	Correo   string

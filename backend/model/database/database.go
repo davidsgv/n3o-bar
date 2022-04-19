@@ -27,6 +27,8 @@ func Init() *sql.DB {
 	} else {
 		connStr = herokuEnv
 	}
+	fmt.Println("env DATABASE_URL: " + herokuEnv)
+	fmt.Println("connection string: " + connStr)
 
 	//connStr := fmt.Sprintf("host=%s port=%d user=%s "+
 	//"password=%s dbname=%s sslmode=disable",

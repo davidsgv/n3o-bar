@@ -1,8 +1,8 @@
 package controller
 
 import (
-	service "github.com/davidsgv/n3o-bar/Service"
 	"github.com/davidsgv/n3o-bar/dto"
+	"github.com/davidsgv/n3o-bar/service/authorization"
 	"github.com/gin-gonic/gin"
 )
 
@@ -28,7 +28,7 @@ func (controller *authorizationController) login(ctx *gin.Context) {
 	}
 
 	//iniciar sesion
-	authorizationService := service.NewAuthorizationService()
+	authorizationService := authorization.NewAuthorizationService()
 	dtoRespuesta, resultado := authorizationService.Login(dto)
 
 	//Si el inicio de sesión falla

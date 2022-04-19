@@ -6,7 +6,6 @@ import (
 )
 
 type AuthorizationModel interface {
-	Create(usuario entity.Usuario) error
 	Login(usuario entity.Usuario) *entity.Usuario
 }
 
@@ -15,23 +14,6 @@ type authorizationModel struct{}
 
 func NewAuthorizationModel() AuthorizationModel {
 	return &authorizationModel{}
-}
-
-func (model *authorizationModel) Create(usuario entity.Usuario) error {
-	sql := database.Init()
-
-	stmt, err := sql.Prepare("CALL spCrearUsuario" +
-		"($1, $2, $3, $4, $5, $6) VALUES ($1, $2, $3, $4, $5, $6)")
-	if err != nil {
-		return err
-	}
-
-	_, err = stmt.Exec(usuario.Tercero.Identificacion, usuario.Tercero.TipoIdentificacion.Id, usuario.Tercero.Nombre, usuario.Correo, usuario.Password, usuario.Rol.Id)
-	defer sql.Close()
-	if err != nil {
-		return err
-	}
-	return nil
 }
 
 func (model *authorizationModel) Login(usuario entity.Usuario) *entity.Usuario {

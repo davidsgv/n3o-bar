@@ -1,8 +1,8 @@
 package controller
 
 import (
-	service "github.com/davidsgv/n3o-bar/Service/tercero"
 	"github.com/davidsgv/n3o-bar/middlewares"
+	service "github.com/davidsgv/n3o-bar/service/tercero"
 	"github.com/gin-gonic/gin"
 )
 

@@ -4,28 +4,36 @@ import (
 	"io"
 	"os"
 
-	service "github.com/davidsgv/n3o-bar/Service"
 	"github.com/davidsgv/n3o-bar/controller"
 	"github.com/davidsgv/n3o-bar/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	loginService service.AuthorizationService = service.NewAuthorizationService()
-	//jwtService   service.JWTService   = service.NewJWTService()
+//services
+// var (
+// 	loginService authorization.AuthorizationService = authorization.NewAuthorizationService()
+// )
 
-	//loginController controller.LoginController = controller.NewLoginController(loginService, jwtService)
-)
-
+//controllers
 var controllers []controller.GenericController = []controller.GenericController{
+	//Administracion
+	controller.NewAuthorizationController(), //authorizacion
+	controller.NewRolController(),           //Roles
+
+	//Tercero
 	controller.NewTipoIdentificacionController(), //tipo identificacion
 	controller.NewTerceroController(),            //tercero
-	controller.NewAuthorizationController(),      //authorizacion
-}
 
-func setupLogOutput() {
-	f, _ := os.Create("gin.log")
-	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+	//Productos
+	controller.NewCategoriaController(), //categorias
+	controller.NewProductoController(),  //productos
+
+	//Pedidos
+	controller.NewMesaController(),         //Mesas
+	controller.NewCajaController(),         //Cajas
+	controller.NewEstadoPedidoController(), //Estados Pedidos
+	controller.NewFormaPagoController(),    //Formas de pago
+	controller.NewPedidoController(),       //Pedidos
 }
 
 func main() {
@@ -49,4 +57,9 @@ func main() {
 		port = "8000"
 	}
 	server.Run(":" + port)
+}
+
+func setupLogOutput() {
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 }

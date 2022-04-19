@@ -2,13 +2,33 @@
  - using env:	export GIN_MODE=release
  - using code:	gin.SetMode(gin.ReleaseMode)
 
+[GIN-debug] POST   /api/login/               --> github.com/davidsgv/n3o-bar/controller.(*authorizationController).login-fm (3 handlers)
+[GIN-debug] GET    /api/rol/                 --> github.com/davidsgv/n3o-bar/controller.rolController.FindAll-fm (4 handlers)
 [GIN-debug] GET    /api/identificacion/      --> github.com/davidsgv/n3o-bar/controller.tipoIdentificacionController.FindAll-fm (4 handlers)
 [GIN-debug] GET    /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.FindAll-fm (4 handlers)
 [GIN-debug] GET    /api/tercero/:id          --> github.com/davidsgv/n3o-bar/controller.terceroController.FindById-fm (4 handlers)
 [GIN-debug] POST   /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.Save-fm (4 handlers)
 [GIN-debug] PUT    /api/tercero/             --> github.com/davidsgv/n3o-bar/controller.terceroController.Update-fm (4 handlers)
-[GIN-debug] POST   /api/login/               --> github.com/davidsgv/n3o-bar/controller.(*authorizationController).login-fm (3 handlers)
+[GIN-debug] GET    /api/categoria/           --> github.com/davidsgv/n3o-bar/controller.categoriaController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/categoria/:id        --> github.com/davidsgv/n3o-bar/controller.categoriaController.FindById-fm (4 handlers)
+[GIN-debug] POST   /api/categoria/           --> github.com/davidsgv/n3o-bar/controller.categoriaController.Save-fm (4 handlers)
+[GIN-debug] PUT    /api/categoria/           --> github.com/davidsgv/n3o-bar/controller.categoriaController.Update-fm (4 handlers)
+[GIN-debug] GET    /api/producto/            --> github.com/davidsgv/n3o-bar/controller.productoController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/producto/:id         --> github.com/davidsgv/n3o-bar/controller.productoController.FindById-fm (4 handlers)
+[GIN-debug] POST   /api/producto/            --> github.com/davidsgv/n3o-bar/controller.productoController.Save-fm (4 handlers)
+[GIN-debug] GET    /api/mesa/                --> github.com/davidsgv/n3o-bar/controller.mesaController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/mesa/:id             --> github.com/davidsgv/n3o-bar/controller.mesaController.FindById-fm (4 handlers)
+[GIN-debug] POST   /api/mesa/                --> github.com/davidsgv/n3o-bar/controller.mesaController.Save-fm (4 handlers)
+[GIN-debug] DELETE /api/mesa/                --> github.com/davidsgv/n3o-bar/controller.mesaController.Delete-fm (4 handlers)
+[GIN-debug] GET    /api/caja/                --> github.com/davidsgv/n3o-bar/controller.cajaController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/caja/:id             --> github.com/davidsgv/n3o-bar/controller.cajaController.FindById-fm (4 handlers)
+[GIN-debug] POST   /api/caja/                --> github.com/davidsgv/n3o-bar/controller.cajaController.Save-fm (4 handlers)
+[GIN-debug] DELETE /api/caja/                --> github.com/davidsgv/n3o-bar/controller.cajaController.Delete-fm (4 handlers)
+[GIN-debug] GET    /api/pedido/estados/      --> github.com/davidsgv/n3o-bar/controller.estadoPedidoController.FindAll-fm (4 handlers)
+[GIN-debug] GET    /api/pedido/formas-pago/  --> github.com/davidsgv/n3o-bar/controller.formaPagoController.FindAll-fm (4 handlers)
+[GIN-debug] POST   /api/pedido/              --> github.com/davidsgv/n3o-bar/controller.pedidoController.Save-fm (4 handlers)
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8000
-127.0.0.1 - [03 Apr 22 19:32 -05] PUT /api/tercero/ 200 155.9531ms 
+[GIN-debug] redirecting request 307: /api/pedido/ --> /api/pedido/
+127.0.0.1 - [17 Apr 22 22:49 -05] POST /api/pedido/ 200 92.1726ms 

@@ -14,8 +14,8 @@ import (
 //interfaz para uso externo
 type AuthorizationService interface {
 	GenerateToken(dto.UsuarioInicioSesion) string
-	Login(dto.Credentials) (*dto.UsuarioInicioSesion, bool)
 	ValidateToken(tokenString string) (*jwt.Token, error)
+	Login(dto.Credentials) (*dto.UsuarioInicioSesion, bool)
 }
 
 //Claims para firma jwt
@@ -41,7 +41,7 @@ func NewAuthorizationService() AuthorizationService {
 }
 
 //Implementación interfaz (publicos)
-func (jwtSrv *jwtService) Login(dtoEntrada dto.Credentials) (*dto.UsuarioInicioSesion, bool) {
+func (jwtSrv jwtService) Login(dtoEntrada dto.Credentials) (*dto.UsuarioInicioSesion, bool) {
 	//se crea el modelo y la entidad con el dto entrante
 	modelAutho := authorization.NewAuthorizationModel()
 	entity := entity.Usuario{
@@ -64,7 +64,7 @@ func (jwtSrv *jwtService) Login(dtoEntrada dto.Credentials) (*dto.UsuarioInicioS
 
 	return nil, false
 }
-func (jwtSrv *jwtService) GenerateToken(dto dto.UsuarioInicioSesion) string {
+func (jwtSrv jwtService) GenerateToken(dto dto.UsuarioInicioSesion) string {
 
 	// Set custom and standard claims
 	claims := &jwtCustomClaims{
@@ -88,7 +88,7 @@ func (jwtSrv *jwtService) GenerateToken(dto dto.UsuarioInicioSesion) string {
 	}
 	return t
 }
-func (jwtSrv *jwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
+func (jwtSrv jwtService) ValidateToken(tokenString string) (*jwt.Token, error) {
 	return jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		// Signing method validation
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {

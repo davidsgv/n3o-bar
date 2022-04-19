@@ -1,0 +1,2 @@
+-Modificar la consulta del modelo de los productos para traer los datos del ultimo hip y no de todos los hip
+-Crear el update para los productos teniendo en cuenta el hip

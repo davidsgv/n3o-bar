@@ -12,6 +12,7 @@ type PedidoModel interface {
 	FindAll() []entity.Pedido
 	Create(entity.Pedido)
 	FindByEstado(int64) []entity.Pedido
+	// Update(entity.Pedido)
 	// FindById(int64) entity.Pedido
 	// Save(entity.Pedido)
 	// Update(entity.Pedido)
@@ -166,6 +167,15 @@ func (model pedidoModel) FindByEstado(idEstado int64) []entity.Pedido {
 	return data
 }
 
+// func (model pedidoModel) Update(entity entity.Pedido){
+// 	qsl = database.Init()
+
+// 	statement = `
+// 		UPDATE ped_Pedido
+// 	`
+
+// 	if()
+// }
 // func (model mesaModel) FindByEstado(id int64) entity.Mesa {
 // 	//inicia la conexión
 // 	database := database.Init()

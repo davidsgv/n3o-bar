@@ -46,6 +46,25 @@ func main() {
 	server.Use(gin.Recovery(),
 		middlewares.Logger())
 
+	// server.LoadHTMLGlob("public/*.html")
+	// server.GET("", func(ctx *gin.Context) {
+	// 	ctx.HTML(http.StatusOK, "index.html", nil)
+	// })
+	server.Use(func(c *gin.Context) {
+
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Credentials", "true")
+		c.Header("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Header("Access-Control-Allow-Methods", "POST,HEAD,PATCH, OPTIONS, GET, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	})
+
 	//Se registran las rutas del api
 	apiRoutes := server.Group("/api/")
 	for i := 0; i < len(controllers); i++ {

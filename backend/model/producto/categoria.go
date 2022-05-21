@@ -3,6 +3,8 @@ package producto
 import (
 	"database/sql"
 	"errors"
+	"fmt"
+	"strings"
 
 	"github.com/davidsgv/n3o-bar/entity"
 	"github.com/davidsgv/n3o-bar/model/database"
@@ -13,6 +15,7 @@ type CategoriaModel interface {
 	FindAll() []entity.Categoria
 	FindById(int64) entity.Categoria
 	Update(entity.Categoria)
+	Delete(int64) error
 }
 
 //type terceroModel entity.Tercero
@@ -105,6 +108,27 @@ func (model categoriaModel) Update(entity entity.Categoria) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func (model categoriaModel) Delete(id int64) error {
+	sql := database.Init()
+
+	_, err := sql.Exec(`DELETE
+						FROM cat_categoria
+						WHERE cat_categoria.cat_id = $1`,
+		id)
+	defer sql.Close()
+
+	if strings.Contains(err.Error(), "update o delete en «cat_categoria» viola la llave foránea «fk_pro_cat» en la tabla «pro_producto") {
+		return errors.New("Existe un producto con esta categoria, no es posible eliminarla")
+	}
+
+	if err != nil {
+		fmt.Printf(err.Error())
+		panic(err)
+	}
+
+	return nil
 }
 
 func (model categoriaModel) trasformToEntity() entity.Categoria {

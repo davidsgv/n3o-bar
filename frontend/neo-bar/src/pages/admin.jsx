@@ -1,13 +1,27 @@
-import React from "react";
-import { NavBar } from "../components/menu/NavBar";
-import { TopBar } from "../components/TopBar";
+import React, { Fragment, useState } from "react";
+import { ListPanel } from "../components/general/Lista/ListPanel";
 
 export function Admin(){
+
+    const [usuarios, setUsuarios] = useState([
+        {
+            name: "admin@admin.com",
+            tag: "Administrador",
+            visible: true,
+            icon: "zmdi-account",
+            id: 1
+        }
+    ]);
+    
+    //Datos necesarios para el ListPanel
+    const listPanelData = {
+        title: "Lista de usuarios",
+        searchActive: false,
+        //searchFunction: handleSearchKeyUp,
+    }
+
     return (
-    <div>
-        <NavBar/>
-        <section class="full-width pageContent">
-            <TopBar/>
+        <Fragment>
             <section className="full-width header-well">
                 <div className="full-width header-well-icon">
                     <i className="zmdi zmdi-account"></i>
@@ -23,7 +37,7 @@ export function Admin(){
                     <a href="#tabNewAdmin" className="mdl-tabs__tab is-active">NEW</a>
                     <a href="#tabListAdmin" className="mdl-tabs__tab">LIST</a>
                 </div>
-			    <div className="mdl-tabs__panel is-active" id="tabNewAdmin">
+                <div className="mdl-tabs__panel is-active" id="tabNewAdmin">
                     <div className="mdl-grid">
                         <div className="mdl-cell mdl-cell--12-col">
                             <div className="full-width panel mdl-shadow--2dp">
@@ -36,13 +50,25 @@ export function Admin(){
                                             <div className="mdl-cell mdl-cell--12-col">
                                                 <legend className="text-condensedLight"><i className="zmdi zmdi-border-color"></i> &nbsp; DATA ADMINISTRATOR</legend><br/>
                                             </div>
-                                            <div className="mdl-cell mdl-cell--12-col">
+                                            <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                     <input className="mdl-textfield__input" type="number" pattern="-?[0-9]*(\.[0-9]+)?" id="DNIAdmin"/>
-                                                    <label className="mdl-textfield__label" htmlFor="DNIAdmin">DNI</label>
+                                                    <label className="mdl-textfield__label" htmlFor="DNIAdmin">identificacion</label>
+                                                    <span className="mdl-textfield__error">Identificacion invalida</span>
+                                                </div>
+                                            </div>
+                                            <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
+                                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                                    <select className="mdl-textfield__input" id="tipo-identificacion">
+                                                        <option value="0"></option>
+                                                        <option value="1">Cedula de ciudadania</option>
+                                                        <option value="2">2</option>
+                                                    </select>
+                                                    <label className="mdl-textfield__label" htmlFor="tipo-identificacion">Tipo Identificacion</label>
                                                     <span className="mdl-textfield__error">Invalid number</span>
                                                 </div>
                                             </div>
+
                                             <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                     <input className="mdl-textfield__input" type="text" pattern="-?[A-Za-záéíóúÁÉÍÓÚ ]*(\.[0-9]+)?" id="NameAdmin"/>
@@ -57,21 +83,15 @@ export function Admin(){
                                                     <span className="mdl-textfield__error">Invalid last name</span>
                                                 </div>
                                             </div>
-                                            <div className="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+                                            <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                     <input className="mdl-textfield__input" type="tel" pattern="-?[0-9+()- ]*(\.[0-9]+)?" id="phoneAdmin"/>
                                                     <label className="mdl-textfield__label" htmlFor="phoneAdmin">Phone</label>
                                                     <span className="mdl-textfield__error">Invalid phone number</span>
                                                 </div>
                                             </div>
-                                            <div className="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
-                                                <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                    <input className="mdl-textfield__input" type="email" id="emailAdmin"/>
-                                                    <label className="mdl-textfield__label" htmlFor="emailAdmin">E-mail</label>
-                                                    <span className="mdl-textfield__error">Invalid E-mail</span>
-                                                </div>
-                                            </div>
-                                            <div className="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+                                            
+                                            <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                                                     <input className="mdl-textfield__input" type="text" id="addressAdmin"/>
                                                     <label className="mdl-textfield__label" htmlFor="addressAdmin">Address</label>
@@ -83,9 +103,9 @@ export function Admin(){
                                             </div>
                                             <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
                                                 <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                                                    <input className="mdl-textfield__input" type="text" pattern="-?[A-Za-z0-9áéíóúÁÉÍÓÚ]*(\.[0-9]+)?" id="UserNameAdmin"/>
-                                                    <label className="mdl-textfield__label" htmlFor="UserNameAdmin">User Name</label>
-                                                    <span className="mdl-textfield__error">Invalid user name</span>
+                                                    <input className="mdl-textfield__input" type="email" id="emailAdmin"/>
+                                                    <label className="mdl-textfield__label" htmlFor="emailAdmin">E-mail</label>
+                                                    <span className="mdl-textfield__error">Invalid E-mail</span>
                                                 </div>
                                             </div>
                                             <div className="mdl-cell mdl-cell--6-col mdl-cell--8-col-tablet">
@@ -95,7 +115,7 @@ export function Admin(){
                                                     <span className="mdl-textfield__error">Invalid password</span>
                                                 </div>
                                             </div>
-                                            <div className="mdl-cell mdl-cell--12-col">
+                                            {/* <div className="mdl-cell mdl-cell--12-col">
                                                 <legend className="text-condensedLight"><i className="zmdi zmdi-border-color"></i> &nbsp; CHOOSE AVATAR</legend><br/>
                                             </div>
                                             <div className="mdl-cell mdl-cell--12-col mdl-cell--8-col-tablet">
@@ -129,7 +149,7 @@ export function Admin(){
                                                         </label>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </div>
                                         <p className="text-center">
                                             <button className="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored bg-primary" id="btn-addAdmin">
@@ -144,77 +164,9 @@ export function Admin(){
                     </div>
                 </div>
                 <div className="mdl-tabs__panel" id="tabListAdmin">
-                    <div className="mdl-grid">
-                        <div className="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--8-col-desktop mdl-cell--2-offset-desktop">
-                            <div className="full-width panel mdl-shadow--2dp">
-                                <div className="full-width panel-tittle bg-success text-center tittles">
-                                    List Administrator
-                                </div>
-                                <div className="full-width panel-content">
-                                    <form action="#">
-                                        <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
-                                            <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="searchAdmin">
-                                                <i className="zmdi zmdi-search"></i>
-                                            </label>
-                                            <div className="mdl-textfield__expandable-holder">
-                                                <input className="mdl-textfield__input" type="text" id="searchAdmin"/>
-                                                <label className="mdl-textfield__label"></label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    <div className="mdl-list">
-                                        <div className="mdl-list__item mdl-list__item--two-line">
-                                            <span className="mdl-list__item-primary-content">
-                                                <i className="zmdi zmdi-account mdl-list__item-avatar"></i>
-                                                <span>1. Administrator name</span>
-                                                <span className="mdl-list__item-sub-title">DNI</span>
-                                            </span>
-                                            <a className="mdl-list__item-secondary-action" href="#!"><i className="zmdi zmdi-more"></i></a>
-                                        </div>
-                                        <li className="full-width divider-menu-h"></li>
-                                        <div className="mdl-list__item mdl-list__item--two-line">
-                                            <span className="mdl-list__item-primary-content">
-                                                <i className="zmdi zmdi-account mdl-list__item-avatar"></i>
-                                                <span>2. Administrator name</span>
-                                                <span className="mdl-list__item-sub-title">DNI</span>
-                                            </span>
-                                            <a className="mdl-list__item-secondary-action" href="#!"><i className="zmdi zmdi-more"></i></a>
-                                        </div>
-                                        <li className="full-width divider-menu-h"></li>
-                                        <div className="mdl-list__item mdl-list__item--two-line">
-                                            <span className="mdl-list__item-primary-content">
-                                                <i className="zmdi zmdi-account mdl-list__item-avatar"></i>
-                                                <span>3. Administrator name</span>
-                                                <span className="mdl-list__item-sub-title">DNI</span>
-                                            </span>
-                                            <a className="mdl-list__item-secondary-action" href="#!"><i className="zmdi zmdi-more"></i></a>
-                                        </div>
-                                        <li className="full-width divider-menu-h"></li>
-                                        <div className="mdl-list__item mdl-list__item--two-line">
-                                            <span className="mdl-list__item-primary-content">
-                                                <i className="zmdi zmdi-account mdl-list__item-avatar"></i>
-                                                <span>4. Administrator name</span>
-                                                <span className="mdl-list__item-sub-title">DNI</span>
-                                            </span>
-                                            <a className="mdl-list__item-secondary-action" href="#!"><i className="zmdi zmdi-more"></i></a>
-                                        </div>
-                                        <li className="full-width divider-menu-h"></li>
-                                        <div className="mdl-list__item mdl-list__item--two-line">
-                                            <span className="mdl-list__item-primary-content">
-                                                <i className="zmdi zmdi-account mdl-list__item-avatar"></i>
-                                                <span>5. Administrator name</span>
-                                                <span className="mdl-list__item-sub-title">DNI</span>
-                                            </span>
-                                            <a className="mdl-list__item-secondary-action" href="#!"><i className="zmdi zmdi-more"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <ListPanel panelData={listPanelData} listData={usuarios}/>
                 </div>
 		    </div>
-	    </section>
-    </div>
+        </Fragment>
     )
 } 

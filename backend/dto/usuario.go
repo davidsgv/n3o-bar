@@ -10,10 +10,15 @@ type UsuarioBuscarById struct {
 	Id int64 `uri:"id" binding:"numeric"`
 }
 
+type UsuarioDesactivar struct {
+	Id     int64 `json:"id" binding:"required,numeric"`
+	Activo bool  `json:"activo"`
+}
+
 type Usuario struct {
 	Id        int64
 	Correo    string
-	RolId     int64
-	TerId     int64
+	Activo    bool
+	RolNombre string
 	TerNombre string
 }

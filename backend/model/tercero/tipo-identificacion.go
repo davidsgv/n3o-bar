@@ -28,7 +28,10 @@ func (model *tipoIdentificacionModel) FindAll() []entity.TipoIdentificacion {
 	sql := database.Init()
 
 	//realiza la consulta a la base de datos
-	prepareDB, err := sql.Prepare("SELECT * FROM tid_TipoIdentificacion")
+	prepareDB, err := sql.Prepare(`
+				SELECT tid_id, tid_nombre, tid_codigo
+				FROM tid_tipoidentificacion
+	`)
 	rows, err := prepareDB.Query()
 	defer rows.Close()
 	if err != nil {

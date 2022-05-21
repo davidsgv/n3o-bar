@@ -14,6 +14,7 @@ type MesaModel interface {
 	Save(entity.Mesa)
 	Disable(int64)
 	Delete(int64)
+	Update(entity.Mesa)
 }
 
 //type terceroModel entity.Tercero
@@ -140,6 +141,27 @@ func (model mesaModel) Delete(id int64) {
 	}
 
 	_, err = stmt.Exec(id)
+	defer sql.Close()
+	if err != nil {
+		panic(err)
+	}
+}
+
+func (model mesaModel) Update(entity entity.Mesa) {
+	sql := database.Init()
+
+	stmt, err := sql.Prepare(`
+		UPDATE mes_Mesa
+		SET mes_Numero = $1,
+			mes_Activo = $2
+		WHERE mes_Id = $3
+	`)
+
+	if err != nil {
+		panic(err)
+	}
+
+	_, err = stmt.Exec(entity.Numero, entity.Activo, entity.Id)
 	defer sql.Close()
 	if err != nil {
 		panic(err)

@@ -26,6 +26,7 @@ func (controller mesaController) Router(router *gin.RouterGroup) {
 	routing.GET("/:id", controller.FindById) //find by id
 	routing.POST("/", controller.Save)       //create
 	routing.DELETE("/", controller.Delete)   //delete
+	routing.PUT("/", controller.Update)      //update
 	// routing.PUT("/", controller.Update)
 }
 
@@ -90,4 +91,17 @@ func (controller mesaController) Delete(ctx *gin.Context) {
 	}
 
 	returnBadBinding(ctx, errors.New("Formato incorrecto"))
+}
+
+func (controller mesaController) Update(ctx *gin.Context) {
+	dto := dto.MesaActualizar{}
+	err := ctx.ShouldBindJSON(&dto)
+
+	if err != nil {
+		returnBadBinding(ctx, err)
+		return
+	}
+
+	service.NewMesaService().Update(dto)
+	returnGoodRequest(ctx, nil)
 }

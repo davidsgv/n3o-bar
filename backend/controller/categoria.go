@@ -29,6 +29,7 @@ func (controller categoriaController) Router(router *gin.RouterGroup) {
 	//administrados
 	routing.POST("/", controller.Save)
 	routing.PUT("/", controller.Update)
+	routing.DELETE("/", controller.Delete)
 }
 
 func (controller categoriaController) FindAll(ctx *gin.Context) {
@@ -88,4 +89,23 @@ func (controller categoriaController) Save(ctx *gin.Context) {
 	service.Save(dto)
 
 	returnGoodRequest(ctx, nil)
+}
+
+func (controller categoriaController) Delete(ctx *gin.Context) {
+	service := service.NewCategoriaService()
+	dto := dto.CategoriaDelete{}
+	err := ctx.ShouldBindJSON(&dto)
+
+	if err != nil {
+		returnBadBinding(ctx, err)
+		return
+	}
+
+	err = service.Delete(dto)
+
+	if err != nil {
+		returnEmptyResultWithMessage(ctx, err.Error())
+		return
+	}
+	returnEmptyResultWithMessage(ctx, "Categoria eliminada correctamente")
 }

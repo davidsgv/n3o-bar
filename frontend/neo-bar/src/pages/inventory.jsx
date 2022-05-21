@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from "react";
-import { NavBar } from "../components/menu/NavBar";
-import { TopBar } from "../components/TopBar";
+import React, {useState, useEffect, Fragment} from "react";
 import { Table } from "../components/inventory/Table";
 import { getServerUrl } from "../functions/configuration";
 
@@ -8,7 +6,23 @@ const URL = getServerUrl() + "/api/producto";
 const KEY = "login.token"
 
 export function Inventory() {
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState([
+        {
+            name: "Prueba", 
+            stock: 200, 
+            category: "Categoria de prueba", 
+            purchasePrice: 2000,
+            salePrice: 2500
+        },
+        {
+            name: "Prueba 2", 
+            stock: 200, 
+            category: "Categoria de prueba", 
+            purchasePrice: 2000,
+            salePrice: 2500
+        }
+    ]);
+
 
     //obtiene las categorias haciendo un fetch
     const getProducts = ()=>{
@@ -38,34 +52,30 @@ export function Inventory() {
     }
 
     useEffect(()=>{
-        getProducts();
+        //getProducts();
     },[]);
 
 
-    return (
-        <div>
-            <NavBar/>
-            <section className="full-width pageContent">
-                <TopBar/>
-                <section className="full-width header-well">
-                    <div className="full-width header-well-icon">
-                        <i className="zmdi zmdi-store"></i>
-                    </div>
-                    <div className="full-width header-well-text">
-                        <p className="text-condensedLight">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde aut nulla accusantium minus corporis accusamus fuga harum natus molestias necessitatibus.
-                        </p>
-                    </div>
-                </section>
-                <div className="full-width divider-menu-h"></div>
-                <div className="mdl-grid">
-                    <div className="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
-                        <div className="table-responsive">
-                            <Table products={products}/>
-                        </div>
-                    </div>
+    return (            
+        <Fragment>
+            <section className="full-width header-well">
+                <div className="full-width header-well-icon">
+                    <i className="zmdi zmdi-store"></i>
+                </div>
+                <div className="full-width header-well-text">
+                    <p className="text-condensedLight">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde aut nulla accusantium minus corporis accusamus fuga harum natus molestias necessitatibus.
+                    </p>
                 </div>
             </section>
-        </div >
+            <div className="full-width divider-menu-h"></div>
+            <div className="mdl-grid">
+                <div className="mdl-cell mdl-cell--4-col-phone mdl-cell--8-col-tablet mdl-cell--12-col-desktop">
+                    <div className="table-responsive">
+                        <Table products={products}/>
+                    </div>
+                </div>
+            </div>
+        </Fragment>
     )
 }

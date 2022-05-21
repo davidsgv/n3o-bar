@@ -11,6 +11,7 @@ type CategoriaService interface {
 	FindAll() []dto.Categoria
 	Update(dto.CategoriaActualizar)
 	FindById(id int64) *dto.Categoria
+	Delete(id dto.CategoriaDelete) error
 }
 
 type categoriaService struct{}
@@ -69,4 +70,9 @@ func (service categoriaService) FindById(id int64) *dto.Categoria {
 	}
 
 	return nil
+}
+
+func (service categoriaService) Delete(dto dto.CategoriaDelete) error {
+	modelo := productoModel.NewCategoriaModel()
+	return modelo.Delete(dto.Id)
 }

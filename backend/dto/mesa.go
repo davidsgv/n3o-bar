@@ -15,3 +15,9 @@ type MesaEliminar struct {
 	Disable bool  `json:"disable" binding:"omitempty,eq=true"`
 	Delete  bool  `json:"delete" binding:"omitempty,eq=true,necsfield=InnerStructField.Disable"`
 }
+
+type MesaActualizar struct {
+	Id     int64  `json:"id" binding:"required,numeric"`
+	Numero string `json:"numero" binding:"required,max=20,min=1"`
+	Active bool   `json:"active" binding:"required"`
+}

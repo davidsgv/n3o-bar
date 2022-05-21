@@ -12,7 +12,7 @@ type MesaService interface {
 	FindById(id int64) *dto.Mesa
 	Disable(dto.MesaEliminar)
 	Delete(dto.MesaEliminar)
-	//Update(dto.CategoriaActualizar)
+	Update(dto.MesaActualizar)
 }
 
 type mesaService struct{}
@@ -69,4 +69,14 @@ func (service mesaService) Disable(dto dto.MesaEliminar) {
 func (service mesaService) Delete(dto dto.MesaEliminar) {
 	id := dto.Id
 	pedido.NewMesasModel().Delete(id)
+}
+
+func (service mesaService) Update(dto dto.MesaActualizar) {
+	mesaEntity := entity.Mesa{
+		Id:     dto.Id,
+		Numero: dto.Numero,
+		Activo: dto.Active,
+	}
+
+	pedido.NewMesasModel().Update(mesaEntity)
 }

@@ -9,8 +9,9 @@ import (
 //interfaz para uso externo
 type UserService interface {
 	CreateUser(dto.UsuarioCrear)
-	FindById(int) *dto.Usuario
+	// FindById(int) *dto.Usuario
 	FindAll() []dto.Usuario
+	Disable(dto.UsuarioDesactivar)
 }
 
 //implementa la interfaz para devolver este objeto
@@ -43,24 +44,26 @@ func (service userService) CreateUser(dtoEntrada dto.UsuarioCrear) {
 
 	model.Create(entity)
 }
-func (service userService) FindById(id int) *dto.Usuario {
-	modelo := authorization.NewUserModel()
 
-	userEntity := modelo.FindById(id)
+// func (service userService) FindById(id int) *dto.Usuario {
+// 	modelo := authorization.NewUserModel()
 
-	if userEntity.Id > 0 {
-		dtoResultado := dto.Usuario{
-			Id:        userEntity.Id,
-			Correo:    userEntity.Correo,
-			TerNombre: userEntity.Tercero.Nombre,
-			TerId:     userEntity.Tercero.Id,
-			RolId:     userEntity.Rol.Id,
-		}
-		return &dtoResultado
-	}
+// 	userEntity := modelo.FindById(id)
 
-	return nil
-}
+// 	if userEntity.Id > 0 {
+// 		dtoResultado := dto.Usuario{
+// 			Id:        userEntity.Id,
+// 			Correo:    userEntity.Correo,
+// 			TerNombre: userEntity.Tercero.Nombre,
+// 			TerId:     userEntity.Tercero.Id,
+// 			RolId:     userEntity.Rol.Id,
+// 		}
+// 		return &dtoResultado
+// 	}
+
+// 	return nil
+// }
+
 func (service userService) FindAll() []dto.Usuario {
 	modelo := authorization.NewUserModel()
 	ListaEntity := modelo.FindAll()
@@ -70,13 +73,18 @@ func (service userService) FindAll() []dto.Usuario {
 		usuario := dto.Usuario{
 			Id:        ListaEntity[i].Id,
 			Correo:    ListaEntity[i].Correo,
+			Activo:    ListaEntity[i].Activo,
 			TerNombre: ListaEntity[i].Tercero.Nombre,
-			TerId:     ListaEntity[i].Tercero.Id,
-			RolId:     ListaEntity[i].Rol.Id,
+			RolNombre: ListaEntity[i].Rol.Nombre,
 		}
 
 		listaDTO = append(listaDTO, usuario)
 	}
 
 	return listaDTO
+}
+
+func (service userService) Disable(dto dto.UsuarioDesactivar) {
+	modelo := authorization.NewUserModel()
+	modelo.Disable(dto.Id, dto.Activo)
 }
